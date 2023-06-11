@@ -1,4 +1,6 @@
 import { Sidebar } from '@/components/Sidebar'
+import { SupabaseProvider } from '@/providers/SupabaseProvider'
+import UserProvider from '@/providers/UserProvider'
 import { Figtree } from 'next/font/google'
 import { ReactNode } from 'react'
 
@@ -15,7 +17,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
    return (
       <html lang="pt-BR">
          <body className={font.className}>
-            <Sidebar>{children}</Sidebar>
+            <SupabaseProvider>
+               <UserProvider>
+                  <Sidebar>{children}</Sidebar>
+               </UserProvider>
+            </SupabaseProvider>
          </body>
       </html>
    )
