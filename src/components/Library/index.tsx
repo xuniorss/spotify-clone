@@ -1,6 +1,7 @@
 'use client'
 
 import useAuthModal from '@/hooks/useAuthModal'
+import useOnPlay from '@/hooks/useOnPlay'
 import useUploadModal from '@/hooks/useUploadModal'
 import { useUser } from '@/hooks/useUser'
 import { Song } from '@/types'
@@ -17,6 +18,8 @@ export const Library = ({ songs }: LibraryProps) => {
    const authModal = useAuthModal()
    const uploadModal = useUploadModal()
    const { user } = useUser()
+
+   const onPlay = useOnPlay(songs)
 
    const onClick = useCallback(() => {
       if (!user) return authModal.onOpen()
@@ -43,7 +46,11 @@ export const Library = ({ songs }: LibraryProps) => {
          </div>
          <div className="mt-4 flex flex-col gap-y-2 px-3">
             {songs.map((item) => (
-               <MediaItem key={item.id} onClick={() => {}} data={item} />
+               <MediaItem
+                  key={item.id}
+                  onClick={(id: string) => onPlay(id)}
+                  data={item}
+               />
             ))}
          </div>
       </div>
